@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Tribute to Tigger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Base & Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #FFF8E7;
+      --parchment:  #F2E4C4;
+      --warm-gold:  #D4A017;
+      --amber:      #C47A00;
+      --brown:      #7B4F21;
+      --dark-brown: #4A2E0E;
+      --orange:     #D4611A;
+      --stripe:     #2B1800;
+      --text:       #3D2000;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: 'Lora', serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Parchment texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Stripe divider ── */
+    .stripe-divider {
+      width: 100%;
+      height: 16px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--orange) 0px,
+        var(--orange) 12px,
+        var(--stripe) 12px,
+        var(--stripe) 24px
+      );
+      opacity: 0.8;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(180deg, #FFF0C0 0%, var(--cream) 100%);
+      border-bottom: 3px solid var(--warm-gold);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--amber);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 700;
+      color: var(--orange);
+      text-shadow: 3px 3px 0 var(--dark-brown), 5px 5px 8px rgba(0,0,0,0.15);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: var(--brown);
+      margin-bottom: 30px;
+    }
+
+    /* Tigger SVG illustration */
+    .tigger-art {
+      width: min(280px, 60vw);
+      margin: 20px auto 30px;
+      display: block;
+      animation: gentle-bounce 3s ease-in-out infinite;
+      filter: drop-shadow(0 8px 16px rgba(100,50,0,0.2));
+    }
+
+    @keyframes gentle-bounce {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50%       { transform: translateY(-12px) rotate(2deg); }
+    }
+
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--brown);
+      max-width: 480px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* ── Sections ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 70px 20px;
+    }
+
+    section:nth-child(even) {
+      background-color: var(--parchment);
+    }
+
+    .section-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--dark-brown);
+      margin-bottom: 40px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--warm-gold);
+    }
+
+    /* ── Quotes ── */
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .quote-card {
+      background: var(--cream);
+      border: 1px solid var(--warm-gold);
+      border-left: 6px solid var(--orange);
+      border-radius: 4px;
+      padding: 28px 24px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .quote-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(100,50,0,0.12);
+    }
+
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 0;
+      color: var(--orange);
+      opacity: 0.35;
+      position: absolute;
+      top: 20px;
+      left: 16px;
+    }
+
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--dark-brown);
+      padding-top: 18px;
+    }
+
+    .quote-attr {
+      margin-top: 12px;
+      font-size: 0.82rem;
+      color: var(--amber);
+      letter-spacing: 1px;
+    }
+
+    /* ── Traits ── */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 22px;
+    }
+
+    .trait-card {
+      text-align: center;
+      padding: 30px 20px;
+      border: 1px solid var(--warm-gold);
+      border-radius: 4px;
+      background: var(--cream);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .trait-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(100,50,0,0.12);
+    }
+
+    .trait-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .trait-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .trait-desc {
+      font-size: 0.9rem;
+      color: var(--brown);
+      line-height: 1.5;
+    }
+
+    /* ── Fun Facts ── */
+    .facts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .fact-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 22px 24px;
+      background: var(--cream);
+      border: 1px solid var(--warm-gold);
+      border-radius: 4px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .fact-item:hover {
+      transform: translateX(6px);
+      box-shadow: 0 4px 16px rgba(100,50,0,0.1);
+    }
+
+    .fact-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--orange);
+      opacity: 0.4;
+      line-height: 1;
+      min-width: 40px;
+    }
+
+    .fact-text {
+      font-size: 0.98rem;
+      color: var(--dark-brown);
+      padding-top: 4px;
+    }
+
+    .fact-text strong {
+      color: var(--orange);
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── Personal Message ── */
+    .message-section {
+      background: linear-gradient(135deg, #FFF0C0 0%, #FFE4A0 100%);
+      border-top: 3px solid var(--warm-gold);
+      border-bottom: 3px solid var(--warm-gold);
+    }
+
+    .message-card {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .message-heart {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.1); }
+    }
+
+    .message-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: var(--dark-brown);
+      margin-bottom: 24px;
+    }
+
+    .message-text {
+      font-size: 1.1rem;
+      color: var(--brown);
+      font-style: italic;
+      line-height: 1.8;
+      border: 2px solid var(--warm-gold);
+      border-radius: 4px;
+      padding: 32px 36px;
+      background: rgba(255,255,255,0.5);
+      position: relative;
+    }
+
+    .message-text::before,
+    .message-text::after {
+      content: '✦';
+      color: var(--warm-gold);
+      position: absolute;
+      font-size: 1.2rem;
+    }
+
+    .message-text::before { top: 14px; left: 18px; }
+    .message-text::after  { bottom: 14px; right: 18px; }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--dark-brown);
+      color: var(--parchment);
+      font-size: 0.85rem;
+    }
+
+    footer .footer-tigger {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--warm-gold);
+      margin-bottom: 8px;
+    }
+
+    footer p { opacity: 0.7; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Decorative paw prints ── */
+    .paw-row {
+      text-align: center;
+      color: var(--warm-gold);
+      opacity: 0.4;
+      font-size: 1.3rem;
+      letter-spacing: 12px;
+      padding: 6px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top stripe ── -->
+  <div class="stripe-divider"></div>
+
+  <!-- ── Hero ── -->
+  <header class="hero">
+    <div class="hero-badge">A Loving Tribute</div>
+    <h1 class="hero-title">Tigger</h1>
+    <p class="hero-subtitle">The Most Wonderful Thing in the Hundred Acre Wood</p>
+
+    <!-- Tigger SVG art -->
+    <svg class="tigger-art" viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg" aria-label="Tigger illustration">
+      <!-- Body -->
+      <ellipse cx="110" cy="160" rx="62" ry="72" fill="#E87820"/>
+      <!-- Stripes on body -->
+      <path d="M72 130 Q110 120 148 130" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.7"/>
+      <path d="M68 150 Q110 140 152 150" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.7"/>
+      <path d="M70 170 Q110 160 150 170" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.7"/>
+      <path d="M74 190 Q110 182 146 190" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.6"/>
+      <!-- Belly -->
+      <ellipse cx="110" cy="165" rx="32" ry="42" fill="#F5C87A" opacity="0.9"/>
+      <!-- Head -->
+      <ellipse cx="110" cy="78" rx="52" ry="50" fill="#E87820"/>
+      <!-- Ears -->
+      <ellipse cx="70" cy="38" rx="18" ry="22" fill="#E87820"/>
+      <ellipse cx="70" cy="38" rx="10" ry="14" fill="#D4611A" opacity="0.6"/>
+      <ellipse cx="150" cy="38" rx="18" ry="22" fill="#E87820"/>
+      <ellipse cx="150" cy="38" rx="10" ry="14" fill="#D4611A" opacity="0.6"/>
+      <!-- Head stripes -->
+      <path d="M80 55 Q110 48 140 55" stroke="#2B1800" stroke-width="4" fill="none" opacity="0.6"/>
+      <path d="M75 68 Q110 62 145 68" stroke="#2B1800" stroke-width="4" fill="none" opacity="0.6"/>
+      <!-- Face -->
+      <!-- Eyes -->
+      <circle cx="92" cy="72" r="11" fill="white"/>
+      <circle cx="128" cy="72" r="11" fill="white"/>
+      <circle cx="95" cy="71" r="7" fill="#2B1800"/>
+      <circle cx="131" cy="71" r="7" fill="#2B1800"/>
+      <circle cx="97" cy="69" r="2.5" fill="white"/>
+      <circle cx="133" cy="69" r="2.5" fill="white"/>
+      <!-- Muzzle -->
+      <ellipse cx="110" cy="93" rx="22" ry="16" fill="#F5C87A"/>
+      <!-- Nose -->
+      <ellipse cx="110" cy="86" rx="7" ry="5" fill="#2B1800"/>
+      <!-- Smile -->
+      <path d="M96 98 Q110 110 124 98" stroke="#2B1800" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Whiskers -->
+      <line x1="60" y1="90" x2="88" y2="93" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
+      <line x1="60" y1="97" x2="88" y2="97" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
+      <line x1="132" y1="93" x2="160" y2="90" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
+      <line x1="132" y1="97" x2="160" y2="97" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
+      <!-- Arms -->
+      <ellipse cx="52" cy="155" rx="20" ry="12" fill="#E87820" transform="rotate(-30 52 155)"/>
+      <ellipse cx="168" cy="155" rx="20" ry="12" fill="#E87820" transform="rotate(30 168 155)"/>
+      <!-- Legs -->
+      <ellipse cx="86" cy="228" rx="20" ry="16" fill="#E87820"/>
+      <ellipse cx="134" cy="228" rx="20" ry="16" fill="#E87820"/>
+      <!-- Tail -->
+      <path d="M170 185 Q200 165 190 140 Q182 120 195 105" stroke="#E87820" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <path d="M170 185 Q200 165 190 140 Q182 120 195 105" stroke="#2B1800" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5" stroke-dasharray="8 10"/>
+    </svg>
+
+    <p class="hero-tagline">
+      "The wonderful thing about Tiggers is I'm the only one!"
+    </p>
+  </header>
+
+  <div class="stripe-divider"></div>
+
+  <!-- ── Quotes ── -->
+  <section>
+    <div class="section-inner reveal">
+      <div class="section-label">Words of Wisdom</div>
+      <h2 class="section-title">His Most Beloved Quotes</h2>
+      <div class="paw-row">🐾 🐾 🐾 🐾 🐾</div>
+      <br/>
+      <div class="quotes-grid">
+
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">The wonderful thing about Tiggers is I'm the only one!</p>
+          <p class="quote-attr">— Tigger's Song</p>
+        </div>
+
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">TTFN — Ta-ta for now!</p>
+          <p class="quote-attr">— Tigger's Farewell</p>
+        </div>
+
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">Bouncing is what Tiggers do best!</p>
+          <p class="quote-attr">— Tigger to Pooh</p>
+        </div>
+
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">Oh, boy! Oh, boy! Oh, boy! Oh, boy! Oh, boy!</p>
+          <p class="quote-attr">— Tigger's excitement</p>
+        </div>
+
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">Name's Tigger. T-I-double-guh-er! That spells Tigger!</p>
+          <p class="quote-attr">— Tigger introducing himself</p>
+        </div>
+
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">Hoo-hoo-hoo-hoo! I can do anything!</p>
+          <p class="quote-attr">— Tigger's confidence</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="stripe-divider"></div>
+
+  <!-- ── Traits ── -->
+  <section>
+    <div class="section-inner reveal">
+      <div class="section-label">What Makes Him Special</div>
+      <h2 class="section-title">Tigger's Personality</h2>
+      <div class="paw-row">🐾 🐾 🐾 🐾 🐾</div>
+      <br/>
+      <div class="traits-grid">
+
+        <div class="trait-card">
+          <span class="trait-icon">✨</span>
+          <div class="trait-name">Exuberant</div>
+          <p class="trait-desc">Tigger approaches every single day with boundless energy and pure, unfiltered joy.</p>
+        </div>
+
+        <div class="trait-card">
+          <span class="trait-icon">🤗</span>
+          <div class="trait-name">Loving</div>
+          <p class="trait-desc">Beneath all that bouncing is one of the warmest, most affectionate hearts in the Hundred Acre Wood.</p>
+        </div>
+
+        <div class="trait-card">
+          <span class="trait-icon">🌟</span>
+          <div class="trait-name">Confident</div>
+          <p class="trait-desc">Tigger never doubts himself for long — he knows he is wonderful, and that spirit is infectious.</p>
+        </div>
+
+        <div class="trait-card">
+          <span class="trait-icon">🧡</span>
+          <div class="trait-name">Loyal</div>
+          <p class="trait-desc">Once Tigger calls you a friend, he is your friend forever — through thick, thin, and every adventure between.</p>
+        </div>
+
+        <div class="trait-card">
+          <span class="trait-icon">🌿</span>
+          <div class="trait-name">Adventurous</div>
+          <p class="trait-desc">No tree is too tall, no path too unknown. Tigger dives headfirst into life's every possibility.</p>
+        </div>
+
+        <div class="trait-card">
+          <span class="trait-icon">😄</span>
+          <div class="trait-name">Joyful</div>
+          <p class="trait-desc">His laugh, his bounce, his "Hoo-hoo-hoo!" — Tigger turns even ordinary moments into something magical.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="stripe-divider"></div>
+
+  <!-- ── Fun Facts ── -->
+  <section>
+    <div class="section-inner reveal">
+      <div class="section-label">Did You Know?</div>
+      <h2 class="section-title">Fun Facts About Tigger</h2>
+      <div class="paw-row">🐾 🐾 🐾 🐾 🐾</div>
+      <br/>
+      <div class="facts-list">
+
+        <div class="fact-item">
+          <span class="fact-number">01</span>
+          <p class="fact-text">
+            <strong>Tigger's literary debut</strong> was in A.A. Milne's <em>The House at Pooh Corner</em>, published in 1928 — making him nearly a century old and still bouncing strong.
+          </p>
+        </div>
+
+        <div class="fact-item">
+          <span class="fact-number">02</span>
+          <p class="fact-text">
+            <strong>He is the only one.</strong> Tigger proudly declares he is the only Tigger in the world — a testament to his one-of-a-kind spirit that no one could ever replicate.
+          </p>
+        </div>
+
+        <div class="fact-item">
+          <span class="fact-number">03</span>
+          <p class="fact-text">
+            <strong>His tail is his spring.</strong> Tigger's bouncing comes from his magnificent, springy tail — he calls it his "most tiggerly" feature.
+          </p>
+        </div>
+
+        <div class="fact-item">
+          <span class="fact-number">04</span>
+          <p class="fact-text">
+            <strong>Inspired by a real toy.</strong> Tigger was based on one of Christopher Robin Milne's stuffed animals, brought to life by his father A.A. Milne's extraordinary imagination.
+          </p>
+        </div>
+
+        <div class="fact-item">
+          <span class="fact-number">05</span>
+          <p class="fact-text">
+            <strong>A picky eater at first.</strong> In his debut story, Tigger tried Pooh's honey, Piglet's haycorns, and Eeyore's thistles before discovering his true favorite: Extract of Malt.
+          </p>
+        </div>
+
+        <div class="fact-item">
+          <span class="fact-number">06</span>
+          <p class="fact-text">
+            <strong>A voice for generations.</strong> The legendary Paul Winchell voiced Tigger for Disney for over 30 years, creating the iconic "Hoo-hoo-hoo-hoo!" that fans everywhere still love.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="stripe-divider"></div>
+
+  <!-- ── Personal Message ── -->
+  <section class="message-section">
+    <div class="section-inner reveal">
+      <div class="message-card">
+        <div class="message-heart">🧡</div>
+        <h2 class="message-title">For My Wonderful Mom</h2>
+        <div class="message-text">
+          For my wonderful mom — because you've always bounced through life with joy,
+          warmth, and an infectious spirit that lights up every room, just like Tigger.
+          You've shown me that the most wonderful thing in the world is a heart full of love —
+          and yours has always been the fullest.
+          <br/><br/>
+          I love you more than all the bounces in the Hundred Acre Wood.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stripe-divider"></div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-tigger">"The wonderful thing about Tiggers is I'm the only one!" 🐯</div>
+    <p>Made with love &amp; a whole lot of bouncing &nbsp;·&nbsp; A tribute to the most wonderful character in the Hundred Acre Wood</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
