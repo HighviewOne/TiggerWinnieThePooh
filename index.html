@@ -97,11 +97,13 @@
 
     /* Tigger SVG illustration */
     .tigger-art {
-      width: min(280px, 60vw);
+      width: min(320px, 72vw);
       margin: 20px auto 30px;
       display: block;
+      border-radius: 8px;
+      border: 4px solid var(--warm-gold);
+      box-shadow: 0 10px 32px rgba(100,50,0,0.25), 0 0 0 8px rgba(212,160,23,0.15);
       animation: gentle-bounce 3s ease-in-out infinite;
-      filter: drop-shadow(0 8px 16px rgba(100,50,0,0.2));
     }
 
     @keyframes gentle-bounce {
@@ -396,56 +398,8 @@
     <h1 class="hero-title">Tigger</h1>
     <p class="hero-subtitle">The Most Wonderful Thing in the Hundred Acre Wood</p>
 
-    <!-- Tigger SVG art -->
-    <svg class="tigger-art" viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg" aria-label="Tigger illustration">
-      <!-- Body -->
-      <ellipse cx="110" cy="160" rx="62" ry="72" fill="#E87820"/>
-      <!-- Stripes on body -->
-      <path d="M72 130 Q110 120 148 130" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.7"/>
-      <path d="M68 150 Q110 140 152 150" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.7"/>
-      <path d="M70 170 Q110 160 150 170" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.7"/>
-      <path d="M74 190 Q110 182 146 190" stroke="#2B1800" stroke-width="5" fill="none" opacity="0.6"/>
-      <!-- Belly -->
-      <ellipse cx="110" cy="165" rx="32" ry="42" fill="#F5C87A" opacity="0.9"/>
-      <!-- Head -->
-      <ellipse cx="110" cy="78" rx="52" ry="50" fill="#E87820"/>
-      <!-- Ears -->
-      <ellipse cx="70" cy="38" rx="18" ry="22" fill="#E87820"/>
-      <ellipse cx="70" cy="38" rx="10" ry="14" fill="#D4611A" opacity="0.6"/>
-      <ellipse cx="150" cy="38" rx="18" ry="22" fill="#E87820"/>
-      <ellipse cx="150" cy="38" rx="10" ry="14" fill="#D4611A" opacity="0.6"/>
-      <!-- Head stripes -->
-      <path d="M80 55 Q110 48 140 55" stroke="#2B1800" stroke-width="4" fill="none" opacity="0.6"/>
-      <path d="M75 68 Q110 62 145 68" stroke="#2B1800" stroke-width="4" fill="none" opacity="0.6"/>
-      <!-- Face -->
-      <!-- Eyes -->
-      <circle cx="92" cy="72" r="11" fill="white"/>
-      <circle cx="128" cy="72" r="11" fill="white"/>
-      <circle cx="95" cy="71" r="7" fill="#2B1800"/>
-      <circle cx="131" cy="71" r="7" fill="#2B1800"/>
-      <circle cx="97" cy="69" r="2.5" fill="white"/>
-      <circle cx="133" cy="69" r="2.5" fill="white"/>
-      <!-- Muzzle -->
-      <ellipse cx="110" cy="93" rx="22" ry="16" fill="#F5C87A"/>
-      <!-- Nose -->
-      <ellipse cx="110" cy="86" rx="7" ry="5" fill="#2B1800"/>
-      <!-- Smile -->
-      <path d="M96 98 Q110 110 124 98" stroke="#2B1800" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <!-- Whiskers -->
-      <line x1="60" y1="90" x2="88" y2="93" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
-      <line x1="60" y1="97" x2="88" y2="97" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
-      <line x1="132" y1="93" x2="160" y2="90" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
-      <line x1="132" y1="97" x2="160" y2="97" stroke="#2B1800" stroke-width="1.5" opacity="0.5"/>
-      <!-- Arms -->
-      <ellipse cx="52" cy="155" rx="20" ry="12" fill="#E87820" transform="rotate(-30 52 155)"/>
-      <ellipse cx="168" cy="155" rx="20" ry="12" fill="#E87820" transform="rotate(30 168 155)"/>
-      <!-- Legs -->
-      <ellipse cx="86" cy="228" rx="20" ry="16" fill="#E87820"/>
-      <ellipse cx="134" cy="228" rx="20" ry="16" fill="#E87820"/>
-      <!-- Tail -->
-      <path d="M170 185 Q200 165 190 140 Q182 120 195 105" stroke="#E87820" stroke-width="12" fill="none" stroke-linecap="round"/>
-      <path d="M170 185 Q200 165 190 140 Q182 120 195 105" stroke="#2B1800" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5" stroke-dasharray="8 10"/>
-    </svg>
+    <!-- Tigger photo -->
+    <img class="tigger-art" src="Tigger.jpg" alt="Tigger — the most wonderful thing!" />
 
     <p class="hero-tagline">
       "The wonderful thing about Tiggers is I'm the only one!"
